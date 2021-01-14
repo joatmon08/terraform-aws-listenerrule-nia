@@ -77,4 +77,9 @@ locals {
     for service, service_data in var.services :
     service_data.meta.host
   ])
+
+  datacenter = distinct([
+    for service, service_data in var.services :
+    service_data.node_datacenter
+  ])
 }

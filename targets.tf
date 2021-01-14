@@ -1,5 +1,5 @@
 resource "aws_lb_target_group" "canary" {
-  name        = local.name.0
+  name        = "${local.name.0}-${local.datacenter.0}"
   port        = local.port.0
   protocol    = "HTTP"
   vpc_id      = var.vpc_id
