@@ -63,9 +63,9 @@ locals {
     service_data.name
   ])
 
-  nodes = distinct([
+  ip_addresses = toset([
     for service, service_data in var.services :
-    service_data.node
+    service_data.node_address
   ])
 
   port = distinct([
