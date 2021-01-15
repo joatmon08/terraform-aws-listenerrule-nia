@@ -1,8 +1,22 @@
 # terraform-aws-listener-rule
 
-This module creates listener rules to be added to
+This module for Consul Terraform Sync creates a listener rule to be added to
 an application load balancer. The listener rules offer a way to
 change weights between blue and green instances of application.
+
+The module register targets by IP address to account for multi-region
+load balancing.
+
+> Note: The module currently parses the DNS name of the node from Consul to
+> register the primary IP address with the target group.
+> This is because instances can have multiple IP addresses on different interfaces.
+> Unless you bind Consul clients to the primary interface or the IP addresses
+> on other interfaces are routable, you might have some connectivity issues.
+> This is particularly the case with EKS.
+
+## Prerequisites
+
+- [Consul Terraform Sync](https://github.com/hashicorp/consul-terraform-sync)
 
 ## Requirements
 
