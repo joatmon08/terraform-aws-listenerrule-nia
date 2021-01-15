@@ -28,12 +28,12 @@ resource "aws_lb_listener_rule" "app_canary" {
     forward {
       target_group {
         arn    = var.blue_target_group_arn
-        weight = 100 - var.green_weight
+        weight = 100 - local.weight.0
       }
 
       target_group {
         arn    = aws_lb_target_group.canary.arn
-        weight = var.green_weight
+        weight = local.weight.0
       }
 
       stickiness {

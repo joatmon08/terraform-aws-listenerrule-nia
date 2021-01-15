@@ -65,7 +65,7 @@ locals {
 
   ip_addresses = toset([
     for service, service_data in var.services :
-    service_data.address
+    service_data.node_address
   ])
 
   port = distinct([
@@ -76,6 +76,11 @@ locals {
   host = distinct([
     for service, service_data in var.services :
     service_data.meta.host
+  ])
+
+  weight = distinct([
+    for service, service_data in var.services :
+    lookup(service_data.meta, "weight", 0)
   ])
 
   datacenter = distinct([
