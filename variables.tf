@@ -47,6 +47,18 @@ variable "health_check_path" {
   description = "Path of health check for applications"
 }
 
+variable "enable_stickiness" {
+  type        = bool
+  description = "Enable stickiness"
+  default     = false
+}
+
+variable "stickiness_duration" {
+  type        = number
+  description = "Duration of stickness in seconds"
+  default     = 600
+}
+
 variable "listener_rule_priority" {
   type        = number
   default     = 1

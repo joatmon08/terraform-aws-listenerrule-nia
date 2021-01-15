@@ -37,8 +37,8 @@ resource "aws_lb_listener_rule" "app_canary" {
       }
 
       stickiness {
-        enabled  = true
-        duration = 600
+        enabled  = var.enable_stickiness
+        duration = var.stickiness_duration
       }
     }
   }
