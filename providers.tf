@@ -7,3 +7,11 @@ terraform {
     }
   }
 }
+
+provider "aws" {
+  alias = "datacenter"
+}
+
+provider "aws" {
+  alias = "cloud"
+}
