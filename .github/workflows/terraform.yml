@@ -13,6 +13,7 @@ jobs:
     defaults:
       run:
         working-directory: test
+
     steps:
       - name: Checkout
         uses: actions/checkout@v2
@@ -22,6 +23,7 @@ jobs:
         with:
           terraform_version: 0.14.4
           cli_config_credentials_token: ${{ secrets.TF_API_TOKEN }}
+          terraform_wrapper: false
 
       - name: Terraform Format
         id: fmt
@@ -31,7 +33,7 @@ jobs:
         id: init
         run: terraform init
 
-      - name: Terraform Plan
+      - name: Unit Tests (Terraform Plan)
         id: plan
         if: github.event_name == 'pull_request'
         run: terraform plan -no-color
@@ -64,10 +66,16 @@ jobs:
               body: output
             })
 
-      - name: Terraform Plan Status
+      - name: Unit Test Status (Terraform Plan)
         if: steps.plan.outcome == 'failure'
         run: exit 1
 
-      - name: Terraform Apply
+      - uses: actions/setup-go@v2
         if: github.ref == 'refs/heads/main' && github.event_name == 'push'
-        run: terraform plan
+        with:
+          go-version: '1.15.6'
+
+      - name: Integration Tests (Terraform Apply & Destroy)
+        if: github.ref == 'refs/heads/main' && github.event_name == 'push'
+        working-directory: test/integration
+        run: go test -v -run TestTerraformListenerRule
