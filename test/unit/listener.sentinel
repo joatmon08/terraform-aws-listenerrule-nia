@@ -8,7 +8,18 @@ for services as service {
 	append(consul_terraform_sync_service_node_addresses, service.node_address)
 }
 
+consul_terraform_sync_service_metadata_weights = []
+for services as service {
+	append(consul_terraform_sync_service_metadata_weights, service.meta.weight)
+}
+
+consul_terraform_sync_service_metadata_hosts = []
+for services as service {
+	append(consul_terraform_sync_service_metadata_hosts, service.meta.host)
+}
+
 aws_lb_target_group_attachments = filter resources as _, v { v.type is "aws_lb_target_group_attachment" }
+aws_lb_listener_rules = filter resources as _, v { v.type is "aws_lb_listener_rule" }
 
 aws_lb_target_group_attachment_does_not_use_node_address = rule {
 	all aws_lb_target_group_attachments as target_group_attachment {
@@ -22,7 +33,21 @@ aws_lb_target_group_attachment_has_ip_address = rule {
 	}
 }
 
+aws_lb_listener_rule_calculates_weights_for_target_groups = rule {
+	all aws_lb_listener_rules as listener_rule {
+		listener_rule.values.action[0].forward[0].target_group[0].weight in consul_terraform_sync_service_metadata_weights and listener_rule.values.action[0].forward[0].target_group[1].weight is (100 - consul_terraform_sync_service_metadata_weights[0])
+	}
+}
+
+aws_lb_listener_rule_adds_host_header_to_condition = rule {
+	all aws_lb_listener_rules as listener_rule {
+		listener_rule.values.condition[0].host_header[0].values[0] in consul_terraform_sync_service_metadata_hosts
+	}
+}
+
 main = rule {
 	aws_lb_target_group_attachment_does_not_use_node_address and
-	aws_lb_target_group_attachment_has_ip_address
+	aws_lb_target_group_attachment_has_ip_address and
+	aws_lb_listener_rule_calculates_weights_for_target_groups and
+	aws_lb_listener_rule_adds_host_header_to_condition
 }

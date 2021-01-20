@@ -7,8 +7,9 @@ services = {
     address = "10.0.1.30"
     port    = 9090
     meta = {
-      host     = "my-application"
+      host     = "my-application.my-company.net"
       pod-name = "my-application-895756f5f-dvdbk"
+      weight   = 30
     }
     tags            = []
     namespace       = null
@@ -34,8 +35,9 @@ services = {
     address = "10.0.1.45"
     port    = 9090
     meta = {
-      host     = "my-application"
+      host     = "my-application.my-company.net"
       pod-name = "my-application-895756f5f-c5hpp"
+      weight   = 30
     }
     tags            = []
     namespace       = null
@@ -61,8 +63,9 @@ services = {
     address = "10.0.1.9"
     port    = 9090
     meta = {
-      host     = "my-application"
+      host     = "my-application.my-company.net"
       pod-name = "my-application-895756f5f-j2z46"
+      weight   = 30
     }
     tags            = []
     namespace       = null

@@ -262,7 +262,7 @@ variables = {
 				"address": "10.0.1.45",
 				"id":      "my-application-895756f5f-c5hpp-my-application",
 				"meta": {
-					"host":     "my-application",
+					"host":     "my-application.test",
 					"pod-name": "my-application-895756f5f-c5hpp",
 				},
 				"name":            "my-application",
@@ -289,7 +289,7 @@ variables = {
 				"address": "10.0.1.30",
 				"id":      "my-application-895756f5f-dvdbk-my-application",
 				"meta": {
-					"host":     "my-application",
+					"host":     "my-application.test",
 					"pod-name": "my-application-895756f5f-dvdbk",
 				},
 				"name":            "my-application",
@@ -316,7 +316,7 @@ variables = {
 				"address": "10.0.1.9",
 				"id":      "my-application-895756f5f-j2z46-my-application",
 				"meta": {
-					"host":     "my-application",
+					"host":     "my-application.test",
 					"pod-name": "my-application-895756f5f-j2z46",
 				},
 				"name":            "my-application",
@@ -1811,7 +1811,7 @@ raw = {
 					"address": "10.0.1.45",
 					"id":      "my-application-895756f5f-c5hpp-my-application",
 					"meta": {
-						"host":     "my-application",
+						"host":     "my-application.test",
 						"pod-name": "my-application-895756f5f-c5hpp",
 					},
 					"name":            "my-application",
@@ -1838,7 +1838,7 @@ raw = {
 					"address": "10.0.1.30",
 					"id":      "my-application-895756f5f-dvdbk-my-application",
 					"meta": {
-						"host":     "my-application",
+						"host":     "my-application.test",
 						"pod-name": "my-application-895756f5f-dvdbk",
 					},
 					"name":            "my-application",
@@ -1865,7 +1865,7 @@ raw = {
 					"address": "10.0.1.9",
 					"id":      "my-application-895756f5f-j2z46-my-application",
 					"meta": {
-						"host":     "my-application",
+						"host":     "my-application.test",
 						"pod-name": "my-application-895756f5f-j2z46",
 					},
 					"name":            "my-application",

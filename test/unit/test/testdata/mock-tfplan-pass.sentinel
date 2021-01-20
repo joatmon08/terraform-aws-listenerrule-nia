@@ -128,10 +128,10 @@ planned_values = {
 								],
 								"target_group": [
 									{
-										"weight": 0,
+										"weight": 20,
 									},
 									{
-										"weight": 100,
+										"weight": 80,
 									},
 								],
 							},
@@ -146,7 +146,7 @@ planned_values = {
 						"host_header": [
 							{
 								"values": [
-									"my-application",
+									"my-application.my-company.net",
 								],
 							},
 						],
@@ -262,8 +262,9 @@ variables = {
 				"address": "10.0.1.45",
 				"id":      "my-application-895756f5f-c5hpp-my-application",
 				"meta": {
-					"host":     "my-application",
+					"host":     "my-application.my-company.net",
 					"pod-name": "my-application-895756f5f-c5hpp",
+					"weight": 20,
 				},
 				"name":            "my-application",
 				"namespace":       null,
@@ -289,8 +290,9 @@ variables = {
 				"address": "10.0.1.30",
 				"id":      "my-application-895756f5f-dvdbk-my-application",
 				"meta": {
-					"host":     "my-application",
+					"host":     "my-application.my-company.net",
 					"pod-name": "my-application-895756f5f-dvdbk",
+					"weight": 20,
 				},
 				"name":            "my-application",
 				"namespace":       null,
@@ -316,8 +318,9 @@ variables = {
 				"address": "10.0.1.9",
 				"id":      "my-application-895756f5f-j2z46-my-application",
 				"meta": {
-					"host":     "my-application",
+					"host":     "my-application.my-company.net",
 					"pod-name": "my-application-895756f5f-j2z46",
+					"weight": 20,
 				},
 				"name":            "my-application",
 				"namespace":       null,
@@ -525,10 +528,10 @@ resource_changes = {
 								],
 								"target_group": [
 									{
-										"weight": 0,
+										"weight": 20,
 									},
 									{
-										"weight": 100,
+										"weight": 80,
 									},
 								],
 							},
@@ -543,7 +546,7 @@ resource_changes = {
 						"host_header": [
 							{
 								"values": [
-									"my-application",
+									"my-application.my-company.net",
 								],
 							},
 						],
@@ -1159,10 +1162,10 @@ raw = {
 												],
 												"target_group": [
 													{
-														"weight": 0,
+														"weight": 20,
 													},
 													{
-														"weight": 100,
+														"weight": 80,
 													},
 												],
 											},
@@ -1177,7 +1180,7 @@ raw = {
 										"host_header": [
 											{
 												"values": [
-													"my-application",
+													"my-application.my-company.net",
 												],
 											},
 										],
@@ -1592,10 +1595,10 @@ raw = {
 									],
 									"target_group": [
 										{
-											"weight": 0,
+											"weight": 20,
 										},
 										{
-											"weight": 100,
+											"weight": 80,
 										},
 									],
 								},
@@ -1610,7 +1613,7 @@ raw = {
 							"host_header": [
 								{
 									"values": [
-										"my-application",
+										"my-application.my-company.net",
 									],
 								},
 							],
@@ -1811,8 +1814,9 @@ raw = {
 					"address": "10.0.1.45",
 					"id":      "my-application-895756f5f-c5hpp-my-application",
 					"meta": {
-						"host":     "my-application",
+						"host":     "my-application.my-company.net",
 						"pod-name": "my-application-895756f5f-c5hpp",
+						"weight": 20,
 					},
 					"name":            "my-application",
 					"namespace":       null,
@@ -1838,8 +1842,9 @@ raw = {
 					"address": "10.0.1.30",
 					"id":      "my-application-895756f5f-dvdbk-my-application",
 					"meta": {
-						"host":     "my-application",
+						"host":     "my-application.my-company.net",
 						"pod-name": "my-application-895756f5f-dvdbk",
+						"weight": 20,
 					},
 					"name":            "my-application",
 					"namespace":       null,
@@ -1865,8 +1870,9 @@ raw = {
 					"address": "10.0.1.9",
 					"id":      "my-application-895756f5f-j2z46-my-application",
 					"meta": {
-						"host":     "my-application",
+						"host":     "my-application.my-company.net",
 						"pod-name": "my-application-895756f5f-j2z46",
+						"weight": 20,
 					},
 					"name":            "my-application",
 					"namespace":       null,
