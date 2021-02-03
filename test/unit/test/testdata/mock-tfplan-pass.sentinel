@@ -1,253 +1,8 @@
 terraform_version = "0.14.4"
 
 planned_values = {
-	"outputs": {},
-	"resources": {
-		"aws_lb.module_test": {
-			"address":        "aws_lb.module_test",
-			"depends_on":     [],
-			"deposed_key":    "",
-			"index":          null,
-			"mode":           "managed",
-			"module_address": "",
-			"name":           "module_test",
-			"provider_name":  "registry.terraform.io/hashicorp/aws",
-			"tainted":        false,
-			"type":           "aws_lb",
-			"values": {
-				"access_logs":                      [],
-				"customer_owned_ipv4_pool":         null,
-				"drop_invalid_header_fields":       false,
-				"enable_cross_zone_load_balancing": null,
-				"enable_deletion_protection":       false,
-				"enable_http2":                     true,
-				"idle_timeout":                     60,
-				"internal":                         false,
-				"load_balancer_type":               "application",
-				"name":                             "terraform-aws-nlb",
-				"name_prefix":                      null,
-				"subnets": [
-					"subnet-6047292c",
-					"subnet-72589119",
-					"subnet-df494fa5",
-				],
-				"tags": {
-					"module":  "terraform-aws-nlb",
-					"purpose": "test",
-				},
-				"timeouts": null,
-			},
-		},
-		"aws_lb_listener.module_test": {
-			"address":        "aws_lb_listener.module_test",
-			"depends_on":     [],
-			"deposed_key":    "",
-			"index":          null,
-			"mode":           "managed",
-			"module_address": "",
-			"name":           "module_test",
-			"provider_name":  "registry.terraform.io/hashicorp/aws",
-			"tainted":        false,
-			"type":           "aws_lb_listener",
-			"values": {
-				"certificate_arn": null,
-				"default_action": [
-					{
-						"authenticate_cognito": [],
-						"authenticate_oidc":    [],
-						"fixed_response":       [],
-						"forward":              [],
-						"redirect":             [],
-						"type":                 "forward",
-					},
-				],
-				"port":     80,
-				"protocol": "HTTP",
-				"timeouts": null,
-			},
-		},
-		"aws_lb_target_group.module_test": {
-			"address":        "aws_lb_target_group.module_test",
-			"depends_on":     [],
-			"deposed_key":    "",
-			"index":          null,
-			"mode":           "managed",
-			"module_address": "",
-			"name":           "module_test",
-			"provider_name":  "registry.terraform.io/hashicorp/aws",
-			"tainted":        false,
-			"type":           "aws_lb_target_group",
-			"values": {
-				"deregistration_delay": 300,
-				"health_check": [
-					{
-						"enabled":             true,
-						"healthy_threshold":   3,
-						"interval":            30,
-						"port":                "traffic-port",
-						"protocol":            "HTTP",
-						"unhealthy_threshold": 3,
-					},
-				],
-				"lambda_multi_value_headers_enabled": false,
-				"name":              "terraform-aws-nlb",
-				"name_prefix":       null,
-				"port":              9090,
-				"protocol":          "HTTP",
-				"proxy_protocol_v2": false,
-				"slow_start":        0,
-				"tags":              null,
-				"target_type":       "ip",
-				"vpc_id":            "vpc-9476d7ff",
-			},
-		},
-		"module.listener_rule.aws_lb_listener_rule.app_canary": {
-			"address":        "module.listener_rule.aws_lb_listener_rule.app_canary",
-			"depends_on":     [],
-			"deposed_key":    "",
-			"index":          null,
-			"mode":           "managed",
-			"module_address": "module.listener_rule",
-			"name":           "app_canary",
-			"provider_name":  "registry.terraform.io/hashicorp/aws",
-			"tainted":        false,
-			"type":           "aws_lb_listener_rule",
-			"values": {
-				"action": [
-					{
-						"authenticate_cognito": [],
-						"authenticate_oidc":    [],
-						"fixed_response":       [],
-						"forward": [
-							{
-								"stickiness": [
-									{
-										"duration": 600,
-										"enabled":  false,
-									},
-								],
-								"target_group": [
-									{
-										"weight": 20,
-									},
-									{
-										"weight": 80,
-									},
-								],
-							},
-						],
-						"redirect":         [],
-						"target_group_arn": null,
-						"type":             "forward",
-					},
-				],
-				"condition": [
-					{
-						"host_header": [
-							{
-								"values": [
-									"my-application.my-company.net",
-								],
-							},
-						],
-						"http_header":         [],
-						"http_request_method": [],
-						"path_pattern":        [],
-						"query_string":        [],
-						"source_ip":           [],
-					},
-				],
-				"priority": 1,
-			},
-		},
-		"module.listener_rule.aws_lb_target_group.canary": {
-			"address":        "module.listener_rule.aws_lb_target_group.canary",
-			"depends_on":     [],
-			"deposed_key":    "",
-			"index":          null,
-			"mode":           "managed",
-			"module_address": "module.listener_rule",
-			"name":           "canary",
-			"provider_name":  "registry.terraform.io/hashicorp/aws",
-			"tainted":        false,
-			"type":           "aws_lb_target_group",
-			"values": {
-				"deregistration_delay": 300,
-				"health_check": [
-					{
-						"enabled":             true,
-						"healthy_threshold":   3,
-						"interval":            30,
-						"path":                "/health",
-						"port":                "traffic-port",
-						"protocol":            "HTTP",
-						"unhealthy_threshold": 3,
-					},
-				],
-				"lambda_multi_value_headers_enabled": false,
-				"name":              "my-application-cloud",
-				"name_prefix":       null,
-				"port":              9090,
-				"protocol":          "HTTP",
-				"proxy_protocol_v2": false,
-				"slow_start":        0,
-				"tags":              null,
-				"target_type":       "ip",
-				"vpc_id":            "vpc-9476d7ff",
-			},
-		},
-		"module.listener_rule.aws_lb_target_group_attachment.app_canary[\"10.0.1.23\"]": {
-			"address":        "module.listener_rule.aws_lb_target_group_attachment.app_canary[\"10.0.1.23\"]",
-			"depends_on":     [],
-			"deposed_key":    "",
-			"index":          "10.0.1.23",
-			"mode":           "managed",
-			"module_address": "module.listener_rule",
-			"name":           "app_canary",
-			"provider_name":  "registry.terraform.io/hashicorp/aws",
-			"tainted":        false,
-			"type":           "aws_lb_target_group_attachment",
-			"values": {
-				"availability_zone": "all",
-				"port":              9090,
-				"target_id":         "10.0.1.23",
-			},
-		},
-		"module.listener_rule.aws_lb_target_group_attachment.app_canary[\"10.0.1.44\"]": {
-			"address":        "module.listener_rule.aws_lb_target_group_attachment.app_canary[\"10.0.1.44\"]",
-			"depends_on":     [],
-			"deposed_key":    "",
-			"index":          "10.0.1.44",
-			"mode":           "managed",
-			"module_address": "module.listener_rule",
-			"name":           "app_canary",
-			"provider_name":  "registry.terraform.io/hashicorp/aws",
-			"tainted":        false,
-			"type":           "aws_lb_target_group_attachment",
-			"values": {
-				"availability_zone": "all",
-				"port":              9090,
-				"target_id":         "10.0.1.44",
-			},
-		},
-		"module.listener_rule.aws_lb_target_group_attachment.app_canary[\"10.0.1.8\"]": {
-			"address":        "module.listener_rule.aws_lb_target_group_attachment.app_canary[\"10.0.1.8\"]",
-			"depends_on":     [],
-			"deposed_key":    "",
-			"index":          "10.0.1.8",
-			"mode":           "managed",
-			"module_address": "module.listener_rule",
-			"name":           "app_canary",
-			"provider_name":  "registry.terraform.io/hashicorp/aws",
-			"tainted":        false,
-			"type":           "aws_lb_target_group_attachment",
-			"values": {
-				"availability_zone": "all",
-				"port":              9090,
-				"target_id":         "10.0.1.8",
-			},
-		},
-	},
+	"outputs":   {},
+	"resources": {},
 }
 
 variables = {
@@ -258,85 +13,117 @@ variables = {
 	"services": {
 		"name": "services",
 		"value": {
-			"my-application-895756f5f-c5hpp-my-application.ip-10-0-1-44.us-west-2.compute.internal.cloud": {
-				"address": "10.0.1.45",
-				"id":      "my-application-895756f5f-c5hpp-my-application",
+			"consul-ingress-gateway-6fd76bdf66-p9qnt.ip-10-0-1-39.us-west-2.compute.internal.cloud": {
+				"address":               "10.0.1.39",
+				"cts_user_defined_meta": {},
+				"id":              "consul-ingress-gateway-6fd76bdf66-p9qnt",
+				"kind":            "ingress-gateway",
+				"meta":            {},
+				"name":            "ingress-gateway",
+				"namespace":       null,
+				"node":            "ip-10-0-1-39.us-west-2.compute.internal",
+				"node_address":    "10.0.1.44",
+				"node_datacenter": "cloud",
+				"node_id":         "fd1def7c-d139-e1a9-4a96-822ddda3e80b",
+				"node_meta": {
+					"consul-network-segment": "",
+					"pod-name":               "consul-lcdsm",
+				},
+				"node_tagged_addresses": {
+					"lan":      "10.0.1.44",
+					"lan_ipv4": "10.0.1.44",
+					"wan":      "10.0.1.44",
+					"wan_ipv4": "10.0.1.44",
+				},
+				"port":   30909,
+				"status": "passing",
+				"tags":   [],
+			},
+			"my-application-575957b495-24cw4-my-application.ip-10-0-1-12.us-west-2.compute.internal.cloud": {
+				"address":               "10.0.1.4",
+				"cts_user_defined_meta": {},
+				"id":   "my-application-575957b495-24cw4-my-application",
+				"kind": "",
 				"meta": {
 					"host":     "my-application.my-company.net",
-					"pod-name": "my-application-895756f5f-c5hpp",
-					"weight": 20,
+					"pod-name": "my-application-575957b495-24cw4",
+					"weight":   "0",
 				},
 				"name":            "my-application",
 				"namespace":       null,
-				"node":            "ip-10-0-1-44.us-west-2.compute.internal",
-				"node_address":    "10.0.1.46",
+				"node":            "ip-10-0-1-12.us-west-2.compute.internal",
+				"node_address":    "10.0.1.9",
 				"node_datacenter": "cloud",
-				"node_id":         "15433dcf-8fd7-e3ff-a280-19a09fca84bf",
+				"node_id":         "58df9b87-bf3a-61b9-6e00-30e8f6ec9b23",
 				"node_meta": {
 					"consul-network-segment": "",
-					"pod-name":               "consul-consul-g46mj",
+					"pod-name":               "consul-2mpz6",
 				},
 				"node_tagged_addresses": {
-					"lan":      "10.0.1.46",
-					"lan_ipv4": "10.0.1.46",
-					"wan":      "10.0.1.46",
-					"wan_ipv4": "10.0.1.46",
+					"lan":      "10.0.1.9",
+					"lan_ipv4": "10.0.1.9",
+					"wan":      "10.0.1.9",
+					"wan_ipv4": "10.0.1.9",
 				},
 				"port":   9090,
 				"status": "passing",
 				"tags":   [],
 			},
-			"my-application-895756f5f-dvdbk-my-application.ip-10-0-1-23.us-west-2.compute.internal.cloud": {
-				"address": "10.0.1.30",
-				"id":      "my-application-895756f5f-dvdbk-my-application",
+			"my-application-575957b495-cdvgw-my-application.ip-10-0-1-39.us-west-2.compute.internal.cloud": {
+				"address":               "10.0.1.36",
+				"cts_user_defined_meta": {},
+				"id":   "my-application-575957b495-cdvgw-my-application",
+				"kind": "",
 				"meta": {
 					"host":     "my-application.my-company.net",
-					"pod-name": "my-application-895756f5f-dvdbk",
-					"weight": 20,
+					"pod-name": "my-application-575957b495-cdvgw",
+					"weight":   "0",
 				},
 				"name":            "my-application",
 				"namespace":       null,
-				"node":            "ip-10-0-1-23.us-west-2.compute.internal",
-				"node_address":    "10.0.1.29",
+				"node":            "ip-10-0-1-39.us-west-2.compute.internal",
+				"node_address":    "10.0.1.44",
 				"node_datacenter": "cloud",
-				"node_id":         "0050311d-832b-b87b-6489-de1784ef07d5",
+				"node_id":         "fd1def7c-d139-e1a9-4a96-822ddda3e80b",
 				"node_meta": {
 					"consul-network-segment": "",
-					"pod-name":               "consul-consul-xlz6g",
+					"pod-name":               "consul-lcdsm",
 				},
 				"node_tagged_addresses": {
-					"lan":      "10.0.1.29",
-					"lan_ipv4": "10.0.1.29",
-					"wan":      "10.0.1.29",
-					"wan_ipv4": "10.0.1.29",
+					"lan":      "10.0.1.44",
+					"lan_ipv4": "10.0.1.44",
+					"wan":      "10.0.1.44",
+					"wan_ipv4": "10.0.1.44",
 				},
 				"port":   9090,
 				"status": "passing",
 				"tags":   [],
 			},
-			"my-application-895756f5f-j2z46-my-application.ip-10-0-1-8.us-west-2.compute.internal.cloud": {
-				"address": "10.0.1.9",
-				"id":      "my-application-895756f5f-j2z46-my-application",
+			"my-application-575957b495-qxqhx-my-application.ip-10-0-1-30.us-west-2.compute.internal.cloud": {
+				"address":               "10.0.1.20",
+				"cts_user_defined_meta": {},
+				"id":   "my-application-575957b495-qxqhx-my-application",
+				"kind": "",
 				"meta": {
 					"host":     "my-application.my-company.net",
-					"pod-name": "my-application-895756f5f-j2z46",
-					"weight": 20,
+					"pod-name": "my-application-575957b495-qxqhx",
+					"weight":   "0",
 				},
 				"name":            "my-application",
 				"namespace":       null,
-				"node":            "ip-10-0-1-8.us-west-2.compute.internal",
-				"node_address":    "10.0.1.10",
+				"node":            "ip-10-0-1-30.us-west-2.compute.internal",
+				"node_address":    "10.0.1.27",
 				"node_datacenter": "cloud",
-				"node_id":         "50eec152-e970-79e8-1914-5f04c0ec792d",
+				"node_id":         "3b545e12-1de4-49b8-8b06-80c7f06f9810",
 				"node_meta": {
 					"consul-network-segment": "",
-					"pod-name":               "consul-consul-78nsv",
+					"pod-name":               "consul-62srk",
 				},
 				"node_tagged_addresses": {
-					"lan":      "10.0.1.10",
-					"lan_ipv4": "10.0.1.10",
-					"wan":      "10.0.1.10",
-					"wan_ipv4": "10.0.1.10",
+					"lan":      "10.0.1.27",
+					"lan_ipv4": "10.0.1.27",
+					"wan":      "10.0.1.27",
+					"wan_ipv4": "10.0.1.27",
 				},
 				"port":   9090,
 				"status": "passing",
@@ -346,405 +133,32 @@ variables = {
 	},
 }
 
-resource_changes = {
-	"aws_lb.module_test": {
-		"address": "aws_lb.module_test",
+resource_changes = {}
+
+output_changes = {
+	"listener_rule_arn": {
 		"change": {
 			"actions": [
-				"create",
+				"delete",
 			],
-			"after": {
-				"access_logs":                      [],
-				"customer_owned_ipv4_pool":         null,
-				"drop_invalid_header_fields":       false,
-				"enable_cross_zone_load_balancing": null,
-				"enable_deletion_protection":       false,
-				"enable_http2":                     true,
-				"idle_timeout":                     60,
-				"internal":                         false,
-				"load_balancer_type":               "application",
-				"name":                             "terraform-aws-nlb",
-				"name_prefix":                      null,
-				"subnets": [
-					"subnet-6047292c",
-					"subnet-72589119",
-					"subnet-df494fa5",
-				],
-				"tags": {
-					"module":  "terraform-aws-nlb",
-					"purpose": "test",
-				},
-				"timeouts": null,
-			},
-			"after_unknown": {
-				"access_logs":     [],
-				"arn":             true,
-				"arn_suffix":      true,
-				"dns_name":        true,
-				"id":              true,
-				"ip_address_type": true,
-				"security_groups": true,
-				"subnet_mapping":  true,
-				"subnets": [
-					false,
-					false,
-					false,
-				],
-				"tags":    {},
-				"vpc_id":  true,
-				"zone_id": true,
-			},
-			"before": null,
+			"after":         null,
+			"after_unknown": false,
+			"before":        null,
 		},
-		"deposed":        "",
-		"index":          null,
-		"mode":           "managed",
-		"module_address": "",
-		"name":           "module_test",
-		"provider_name":  "registry.terraform.io/hashicorp/aws",
-		"type":           "aws_lb",
+		"name": "listener_rule_arn",
 	},
-	"aws_lb_listener.module_test": {
-		"address": "aws_lb_listener.module_test",
+	"target_group_arn": {
 		"change": {
 			"actions": [
-				"create",
+				"delete",
 			],
-			"after": {
-				"certificate_arn": null,
-				"default_action": [
-					{
-						"authenticate_cognito": [],
-						"authenticate_oidc":    [],
-						"fixed_response":       [],
-						"forward":              [],
-						"redirect":             [],
-						"type":                 "forward",
-					},
-				],
-				"port":     80,
-				"protocol": "HTTP",
-				"timeouts": null,
-			},
-			"after_unknown": {
-				"arn": true,
-				"default_action": [
-					{
-						"authenticate_cognito": [],
-						"authenticate_oidc":    [],
-						"fixed_response":       [],
-						"forward":              [],
-						"order":                true,
-						"redirect":             [],
-						"target_group_arn":     true,
-					},
-				],
-				"id":                true,
-				"load_balancer_arn": true,
-				"ssl_policy":        true,
-			},
-			"before": null,
+			"after":         null,
+			"after_unknown": false,
+			"before":        null,
 		},
-		"deposed":        "",
-		"index":          null,
-		"mode":           "managed",
-		"module_address": "",
-		"name":           "module_test",
-		"provider_name":  "registry.terraform.io/hashicorp/aws",
-		"type":           "aws_lb_listener",
-	},
-	"aws_lb_target_group.module_test": {
-		"address": "aws_lb_target_group.module_test",
-		"change": {
-			"actions": [
-				"create",
-			],
-			"after": {
-				"deregistration_delay": 300,
-				"health_check": [
-					{
-						"enabled":             true,
-						"healthy_threshold":   3,
-						"interval":            30,
-						"port":                "traffic-port",
-						"protocol":            "HTTP",
-						"unhealthy_threshold": 3,
-					},
-				],
-				"lambda_multi_value_headers_enabled": false,
-				"name":              "terraform-aws-nlb",
-				"name_prefix":       null,
-				"port":              9090,
-				"protocol":          "HTTP",
-				"proxy_protocol_v2": false,
-				"slow_start":        0,
-				"tags":              null,
-				"target_type":       "ip",
-				"vpc_id":            "vpc-9476d7ff",
-			},
-			"after_unknown": {
-				"arn":        true,
-				"arn_suffix": true,
-				"health_check": [
-					{
-						"matcher": true,
-						"path":    true,
-						"timeout": true,
-					},
-				],
-				"id": true,
-				"load_balancing_algorithm_type": true,
-				"stickiness":                    true,
-			},
-			"before": null,
-		},
-		"deposed":        "",
-		"index":          null,
-		"mode":           "managed",
-		"module_address": "",
-		"name":           "module_test",
-		"provider_name":  "registry.terraform.io/hashicorp/aws",
-		"type":           "aws_lb_target_group",
-	},
-	"module.listener_rule.aws_lb_listener_rule.app_canary": {
-		"address": "module.listener_rule.aws_lb_listener_rule.app_canary",
-		"change": {
-			"actions": [
-				"create",
-			],
-			"after": {
-				"action": [
-					{
-						"authenticate_cognito": [],
-						"authenticate_oidc":    [],
-						"fixed_response":       [],
-						"forward": [
-							{
-								"stickiness": [
-									{
-										"duration": 600,
-										"enabled":  false,
-									},
-								],
-								"target_group": [
-									{
-										"weight": 20,
-									},
-									{
-										"weight": 80,
-									},
-								],
-							},
-						],
-						"redirect":         [],
-						"target_group_arn": null,
-						"type":             "forward",
-					},
-				],
-				"condition": [
-					{
-						"host_header": [
-							{
-								"values": [
-									"my-application.my-company.net",
-								],
-							},
-						],
-						"http_header":         [],
-						"http_request_method": [],
-						"path_pattern":        [],
-						"query_string":        [],
-						"source_ip":           [],
-					},
-				],
-				"priority": 1,
-			},
-			"after_unknown": {
-				"action": [
-					{
-						"authenticate_cognito": [],
-						"authenticate_oidc":    [],
-						"fixed_response":       [],
-						"forward": [
-							{
-								"stickiness": [
-									{},
-								],
-								"target_group": [
-									{
-										"arn": true,
-									},
-									{
-										"arn": true,
-									},
-								],
-							},
-						],
-						"order":    true,
-						"redirect": [],
-					},
-				],
-				"arn": true,
-				"condition": [
-					{
-						"host_header": [
-							{
-								"values": [
-									false,
-								],
-							},
-						],
-						"http_header":         [],
-						"http_request_method": [],
-						"path_pattern":        [],
-						"query_string":        [],
-						"source_ip":           [],
-					},
-				],
-				"id":           true,
-				"listener_arn": true,
-			},
-			"before": null,
-		},
-		"deposed":        "",
-		"index":          null,
-		"mode":           "managed",
-		"module_address": "module.listener_rule",
-		"name":           "app_canary",
-		"provider_name":  "registry.terraform.io/hashicorp/aws",
-		"type":           "aws_lb_listener_rule",
-	},
-	"module.listener_rule.aws_lb_target_group.canary": {
-		"address": "module.listener_rule.aws_lb_target_group.canary",
-		"change": {
-			"actions": [
-				"create",
-			],
-			"after": {
-				"deregistration_delay": 300,
-				"health_check": [
-					{
-						"enabled":             true,
-						"healthy_threshold":   3,
-						"interval":            30,
-						"path":                "/health",
-						"port":                "traffic-port",
-						"protocol":            "HTTP",
-						"unhealthy_threshold": 3,
-					},
-				],
-				"lambda_multi_value_headers_enabled": false,
-				"name":              "my-application-cloud",
-				"name_prefix":       null,
-				"port":              9090,
-				"protocol":          "HTTP",
-				"proxy_protocol_v2": false,
-				"slow_start":        0,
-				"tags":              null,
-				"target_type":       "ip",
-				"vpc_id":            "vpc-9476d7ff",
-			},
-			"after_unknown": {
-				"arn":        true,
-				"arn_suffix": true,
-				"health_check": [
-					{
-						"matcher": true,
-						"timeout": true,
-					},
-				],
-				"id": true,
-				"load_balancing_algorithm_type": true,
-				"stickiness":                    true,
-			},
-			"before": null,
-		},
-		"deposed":        "",
-		"index":          null,
-		"mode":           "managed",
-		"module_address": "module.listener_rule",
-		"name":           "canary",
-		"provider_name":  "registry.terraform.io/hashicorp/aws",
-		"type":           "aws_lb_target_group",
-	},
-	"module.listener_rule.aws_lb_target_group_attachment.app_canary[\"10.0.1.23\"]": {
-		"address": "module.listener_rule.aws_lb_target_group_attachment.app_canary[\"10.0.1.23\"]",
-		"change": {
-			"actions": [
-				"create",
-			],
-			"after": {
-				"availability_zone": "all",
-				"port":              9090,
-				"target_id":         "10.0.1.23",
-			},
-			"after_unknown": {
-				"id":               true,
-				"target_group_arn": true,
-			},
-			"before": null,
-		},
-		"deposed":        "",
-		"index":          "10.0.1.23",
-		"mode":           "managed",
-		"module_address": "module.listener_rule",
-		"name":           "app_canary",
-		"provider_name":  "registry.terraform.io/hashicorp/aws",
-		"type":           "aws_lb_target_group_attachment",
-	},
-	"module.listener_rule.aws_lb_target_group_attachment.app_canary[\"10.0.1.44\"]": {
-		"address": "module.listener_rule.aws_lb_target_group_attachment.app_canary[\"10.0.1.44\"]",
-		"change": {
-			"actions": [
-				"create",
-			],
-			"after": {
-				"availability_zone": "all",
-				"port":              9090,
-				"target_id":         "10.0.1.44",
-			},
-			"after_unknown": {
-				"id":               true,
-				"target_group_arn": true,
-			},
-			"before": null,
-		},
-		"deposed":        "",
-		"index":          "10.0.1.44",
-		"mode":           "managed",
-		"module_address": "module.listener_rule",
-		"name":           "app_canary",
-		"provider_name":  "registry.terraform.io/hashicorp/aws",
-		"type":           "aws_lb_target_group_attachment",
-	},
-	"module.listener_rule.aws_lb_target_group_attachment.app_canary[\"10.0.1.8\"]": {
-		"address": "module.listener_rule.aws_lb_target_group_attachment.app_canary[\"10.0.1.8\"]",
-		"change": {
-			"actions": [
-				"create",
-			],
-			"after": {
-				"availability_zone": "all",
-				"port":              9090,
-				"target_id":         "10.0.1.8",
-			},
-			"after_unknown": {
-				"id":               true,
-				"target_group_arn": true,
-			},
-			"before": null,
-		},
-		"deposed":        "",
-		"index":          "10.0.1.8",
-		"mode":           "managed",
-		"module_address": "module.listener_rule",
-		"name":           "app_canary",
-		"provider_name":  "registry.terraform.io/hashicorp/aws",
-		"type":           "aws_lb_target_group_attachment",
+		"name": "target_group_arn",
 	},
 }
-
-output_changes = {}
 
 raw = {
 	"configuration": {
@@ -789,6 +203,22 @@ raw = {
 						},
 					},
 					"module": {
+						"outputs": {
+							"listener_rule_arn": {
+								"expression": {
+									"references": [
+										"aws_lb_listener_rule.app_canary",
+									],
+								},
+							},
+							"target_group_arn": {
+								"expression": {
+									"references": [
+										"aws_lb_target_group.canary",
+									],
+								},
+							},
+						},
 						"resources": [
 							{
 								"address": "aws_lb_listener_rule.app_canary",
@@ -965,6 +395,7 @@ raw = {
 								"description": "Percentage of traffic to send to green deployment",
 							},
 							"health_check_path": {
+								"default":     "/health",
 								"description": "Path of health check for applications",
 							},
 							"listener_arn": {
@@ -973,6 +404,10 @@ raw = {
 							"listener_rule_priority": {
 								"default":     1,
 								"description": "Priority of listener rule between 1 to 50000",
+							},
+							"service_kind": {
+								"default":     "",
+								"description": "Kind of Consul service. Can be ingress-gateway, terminating-gateway.",
 							},
 							"services": {
 								"description": "Consul services monitored by Consul-Terraform-Sync",
@@ -987,6 +422,22 @@ raw = {
 						},
 					},
 					"source": "../",
+				},
+			},
+			"outputs": {
+				"listener_rule_arn": {
+					"expression": {
+						"references": [
+							"module.listener_rule.listener_rule_arn",
+						],
+					},
+				},
+				"target_group_arn": {
+					"expression": {
+						"references": [
+							"module.listener_rule.target_group_arn",
+						],
+					},
 				},
 			},
 			"resources": [
@@ -1133,676 +584,25 @@ raw = {
 		},
 	},
 	"format_version": "0.1",
+	"output_changes": {
+		"listener_rule_arn": {
+			"actions": [
+				"delete",
+			],
+			"after_unknown": false,
+			"before":        null,
+		},
+		"target_group_arn": {
+			"actions": [
+				"delete",
+			],
+			"after_unknown": false,
+			"before":        null,
+		},
+	},
 	"planned_values": {
-		"root_module": {
-			"child_modules": [
-				{
-					"address": "module.listener_rule",
-					"resources": [
-						{
-							"address":        "module.listener_rule.aws_lb_listener_rule.app_canary",
-							"mode":           "managed",
-							"name":           "app_canary",
-							"provider_name":  "registry.terraform.io/hashicorp/aws",
-							"schema_version": 0,
-							"type":           "aws_lb_listener_rule",
-							"values": {
-								"action": [
-									{
-										"authenticate_cognito": [],
-										"authenticate_oidc":    [],
-										"fixed_response":       [],
-										"forward": [
-											{
-												"stickiness": [
-													{
-														"duration": 600,
-														"enabled":  false,
-													},
-												],
-												"target_group": [
-													{
-														"weight": 20,
-													},
-													{
-														"weight": 80,
-													},
-												],
-											},
-										],
-										"redirect":         [],
-										"target_group_arn": null,
-										"type":             "forward",
-									},
-								],
-								"condition": [
-									{
-										"host_header": [
-											{
-												"values": [
-													"my-application.my-company.net",
-												],
-											},
-										],
-										"http_header":         [],
-										"http_request_method": [],
-										"path_pattern":        [],
-										"query_string":        [],
-										"source_ip":           [],
-									},
-								],
-								"priority": 1,
-							},
-						},
-						{
-							"address":        "module.listener_rule.aws_lb_target_group.canary",
-							"mode":           "managed",
-							"name":           "canary",
-							"provider_name":  "registry.terraform.io/hashicorp/aws",
-							"schema_version": 0,
-							"type":           "aws_lb_target_group",
-							"values": {
-								"deregistration_delay": 300,
-								"health_check": [
-									{
-										"enabled":             true,
-										"healthy_threshold":   3,
-										"interval":            30,
-										"path":                "/health",
-										"port":                "traffic-port",
-										"protocol":            "HTTP",
-										"unhealthy_threshold": 3,
-									},
-								],
-								"lambda_multi_value_headers_enabled": false,
-								"name":              "my-application-cloud",
-								"name_prefix":       null,
-								"port":              9090,
-								"protocol":          "HTTP",
-								"proxy_protocol_v2": false,
-								"slow_start":        0,
-								"tags":              null,
-								"target_type":       "ip",
-								"vpc_id":            "vpc-9476d7ff",
-							},
-						},
-						{
-							"address":        "module.listener_rule.aws_lb_target_group_attachment.app_canary[\"10.0.1.23\"]",
-							"index":          "10.0.1.23",
-							"mode":           "managed",
-							"name":           "app_canary",
-							"provider_name":  "registry.terraform.io/hashicorp/aws",
-							"schema_version": 0,
-							"type":           "aws_lb_target_group_attachment",
-							"values": {
-								"availability_zone": "all",
-								"port":              9090,
-								"target_id":         "10.0.1.23",
-							},
-						},
-						{
-							"address":        "module.listener_rule.aws_lb_target_group_attachment.app_canary[\"10.0.1.44\"]",
-							"index":          "10.0.1.44",
-							"mode":           "managed",
-							"name":           "app_canary",
-							"provider_name":  "registry.terraform.io/hashicorp/aws",
-							"schema_version": 0,
-							"type":           "aws_lb_target_group_attachment",
-							"values": {
-								"availability_zone": "all",
-								"port":              9090,
-								"target_id":         "10.0.1.44",
-							},
-						},
-						{
-							"address":        "module.listener_rule.aws_lb_target_group_attachment.app_canary[\"10.0.1.8\"]",
-							"index":          "10.0.1.8",
-							"mode":           "managed",
-							"name":           "app_canary",
-							"provider_name":  "registry.terraform.io/hashicorp/aws",
-							"schema_version": 0,
-							"type":           "aws_lb_target_group_attachment",
-							"values": {
-								"availability_zone": "all",
-								"port":              9090,
-								"target_id":         "10.0.1.8",
-							},
-						},
-					],
-				},
-			],
-			"resources": [
-				{
-					"address":        "aws_lb.module_test",
-					"mode":           "managed",
-					"name":           "module_test",
-					"provider_name":  "registry.terraform.io/hashicorp/aws",
-					"schema_version": 0,
-					"type":           "aws_lb",
-					"values": {
-						"access_logs":                      [],
-						"customer_owned_ipv4_pool":         null,
-						"drop_invalid_header_fields":       false,
-						"enable_cross_zone_load_balancing": null,
-						"enable_deletion_protection":       false,
-						"enable_http2":                     true,
-						"idle_timeout":                     60,
-						"internal":                         false,
-						"load_balancer_type":               "application",
-						"name":                             "terraform-aws-nlb",
-						"name_prefix":                      null,
-						"subnets": [
-							"subnet-6047292c",
-							"subnet-72589119",
-							"subnet-df494fa5",
-						],
-						"tags": {
-							"module":  "terraform-aws-nlb",
-							"purpose": "test",
-						},
-						"timeouts": null,
-					},
-				},
-				{
-					"address":        "aws_lb_listener.module_test",
-					"mode":           "managed",
-					"name":           "module_test",
-					"provider_name":  "registry.terraform.io/hashicorp/aws",
-					"schema_version": 0,
-					"type":           "aws_lb_listener",
-					"values": {
-						"certificate_arn": null,
-						"default_action": [
-							{
-								"authenticate_cognito": [],
-								"authenticate_oidc":    [],
-								"fixed_response":       [],
-								"forward":              [],
-								"redirect":             [],
-								"type":                 "forward",
-							},
-						],
-						"port":     80,
-						"protocol": "HTTP",
-						"timeouts": null,
-					},
-				},
-				{
-					"address":        "aws_lb_target_group.module_test",
-					"mode":           "managed",
-					"name":           "module_test",
-					"provider_name":  "registry.terraform.io/hashicorp/aws",
-					"schema_version": 0,
-					"type":           "aws_lb_target_group",
-					"values": {
-						"deregistration_delay": 300,
-						"health_check": [
-							{
-								"enabled":             true,
-								"healthy_threshold":   3,
-								"interval":            30,
-								"port":                "traffic-port",
-								"protocol":            "HTTP",
-								"unhealthy_threshold": 3,
-							},
-						],
-						"lambda_multi_value_headers_enabled": false,
-						"name":              "terraform-aws-nlb",
-						"name_prefix":       null,
-						"port":              9090,
-						"protocol":          "HTTP",
-						"proxy_protocol_v2": false,
-						"slow_start":        0,
-						"tags":              null,
-						"target_type":       "ip",
-						"vpc_id":            "vpc-9476d7ff",
-					},
-				},
-			],
-		},
+		"root_module": {},
 	},
-	"prior_state": {
-		"format_version":    "0.1",
-		"terraform_version": "0.14.4",
-		"values": {
-			"root_module": {
-				"resources": [
-					{
-						"address":        "data.aws_subnet_ids.selected",
-						"mode":           "data",
-						"name":           "selected",
-						"provider_name":  "registry.terraform.io/hashicorp/aws",
-						"schema_version": 0,
-						"type":           "aws_subnet_ids",
-						"values": {
-							"filter": null,
-							"id":     "vpc-9476d7ff",
-							"ids": [
-								"subnet-6047292c",
-								"subnet-72589119",
-								"subnet-df494fa5",
-							],
-							"tags":   null,
-							"vpc_id": "vpc-9476d7ff",
-						},
-					},
-					{
-						"address":        "data.aws_vpc.selected",
-						"mode":           "data",
-						"name":           "selected",
-						"provider_name":  "registry.terraform.io/hashicorp/aws",
-						"schema_version": 0,
-						"type":           "aws_vpc",
-						"values": {
-							"arn":        "arn:aws:ec2:us-east-2:938765688536:vpc/vpc-9476d7ff",
-							"cidr_block": "172.31.0.0/16",
-							"cidr_block_associations": [
-								{
-									"association_id": "vpc-cidr-assoc-4352f128",
-									"cidr_block":     "172.31.0.0/16",
-									"state":          "associated",
-								},
-							],
-							"default":              true,
-							"dhcp_options_id":      "dopt-56bd073d",
-							"enable_dns_hostnames": true,
-							"enable_dns_support":   true,
-							"filter":               null,
-							"id":                   "vpc-9476d7ff",
-							"instance_tenancy":     "default",
-							"ipv6_association_id":  null,
-							"ipv6_cidr_block":      null,
-							"main_route_table_id":  "rtb-740b621f",
-							"owner_id":             "938765688536",
-							"state":                "available",
-							"tags":                 {},
-						},
-					},
-				],
-			},
-		},
-	},
-	"resource_changes": [
-		{
-			"address": "aws_lb.module_test",
-			"change": {
-				"actions": [
-					"create",
-				],
-				"after": {
-					"access_logs":                      [],
-					"customer_owned_ipv4_pool":         null,
-					"drop_invalid_header_fields":       false,
-					"enable_cross_zone_load_balancing": null,
-					"enable_deletion_protection":       false,
-					"enable_http2":                     true,
-					"idle_timeout":                     60,
-					"internal":                         false,
-					"load_balancer_type":               "application",
-					"name":                             "terraform-aws-nlb",
-					"name_prefix":                      null,
-					"subnets": [
-						"subnet-6047292c",
-						"subnet-72589119",
-						"subnet-df494fa5",
-					],
-					"tags": {
-						"module":  "terraform-aws-nlb",
-						"purpose": "test",
-					},
-					"timeouts": null,
-				},
-				"after_unknown": {
-					"access_logs":     [],
-					"arn":             true,
-					"arn_suffix":      true,
-					"dns_name":        true,
-					"id":              true,
-					"ip_address_type": true,
-					"security_groups": true,
-					"subnet_mapping":  true,
-					"subnets": [
-						false,
-						false,
-						false,
-					],
-					"tags":    {},
-					"vpc_id":  true,
-					"zone_id": true,
-				},
-				"before": null,
-			},
-			"mode":          "managed",
-			"name":          "module_test",
-			"provider_name": "registry.terraform.io/hashicorp/aws",
-			"type":          "aws_lb",
-		},
-		{
-			"address": "aws_lb_listener.module_test",
-			"change": {
-				"actions": [
-					"create",
-				],
-				"after": {
-					"certificate_arn": null,
-					"default_action": [
-						{
-							"authenticate_cognito": [],
-							"authenticate_oidc":    [],
-							"fixed_response":       [],
-							"forward":              [],
-							"redirect":             [],
-							"type":                 "forward",
-						},
-					],
-					"port":     80,
-					"protocol": "HTTP",
-					"timeouts": null,
-				},
-				"after_unknown": {
-					"arn": true,
-					"default_action": [
-						{
-							"authenticate_cognito": [],
-							"authenticate_oidc":    [],
-							"fixed_response":       [],
-							"forward":              [],
-							"order":                true,
-							"redirect":             [],
-							"target_group_arn":     true,
-						},
-					],
-					"id":                true,
-					"load_balancer_arn": true,
-					"ssl_policy":        true,
-				},
-				"before": null,
-			},
-			"mode":          "managed",
-			"name":          "module_test",
-			"provider_name": "registry.terraform.io/hashicorp/aws",
-			"type":          "aws_lb_listener",
-		},
-		{
-			"address": "aws_lb_target_group.module_test",
-			"change": {
-				"actions": [
-					"create",
-				],
-				"after": {
-					"deregistration_delay": 300,
-					"health_check": [
-						{
-							"enabled":             true,
-							"healthy_threshold":   3,
-							"interval":            30,
-							"port":                "traffic-port",
-							"protocol":            "HTTP",
-							"unhealthy_threshold": 3,
-						},
-					],
-					"lambda_multi_value_headers_enabled": false,
-					"name":              "terraform-aws-nlb",
-					"name_prefix":       null,
-					"port":              9090,
-					"protocol":          "HTTP",
-					"proxy_protocol_v2": false,
-					"slow_start":        0,
-					"tags":              null,
-					"target_type":       "ip",
-					"vpc_id":            "vpc-9476d7ff",
-				},
-				"after_unknown": {
-					"arn":        true,
-					"arn_suffix": true,
-					"health_check": [
-						{
-							"matcher": true,
-							"path":    true,
-							"timeout": true,
-						},
-					],
-					"id": true,
-					"load_balancing_algorithm_type": true,
-					"stickiness":                    true,
-				},
-				"before": null,
-			},
-			"mode":          "managed",
-			"name":          "module_test",
-			"provider_name": "registry.terraform.io/hashicorp/aws",
-			"type":          "aws_lb_target_group",
-		},
-		{
-			"address": "module.listener_rule.aws_lb_listener_rule.app_canary",
-			"change": {
-				"actions": [
-					"create",
-				],
-				"after": {
-					"action": [
-						{
-							"authenticate_cognito": [],
-							"authenticate_oidc":    [],
-							"fixed_response":       [],
-							"forward": [
-								{
-									"stickiness": [
-										{
-											"duration": 600,
-											"enabled":  false,
-										},
-									],
-									"target_group": [
-										{
-											"weight": 20,
-										},
-										{
-											"weight": 80,
-										},
-									],
-								},
-							],
-							"redirect":         [],
-							"target_group_arn": null,
-							"type":             "forward",
-						},
-					],
-					"condition": [
-						{
-							"host_header": [
-								{
-									"values": [
-										"my-application.my-company.net",
-									],
-								},
-							],
-							"http_header":         [],
-							"http_request_method": [],
-							"path_pattern":        [],
-							"query_string":        [],
-							"source_ip":           [],
-						},
-					],
-					"priority": 1,
-				},
-				"after_unknown": {
-					"action": [
-						{
-							"authenticate_cognito": [],
-							"authenticate_oidc":    [],
-							"fixed_response":       [],
-							"forward": [
-								{
-									"stickiness": [
-										{},
-									],
-									"target_group": [
-										{
-											"arn": true,
-										},
-										{
-											"arn": true,
-										},
-									],
-								},
-							],
-							"order":    true,
-							"redirect": [],
-						},
-					],
-					"arn": true,
-					"condition": [
-						{
-							"host_header": [
-								{
-									"values": [
-										false,
-									],
-								},
-							],
-							"http_header":         [],
-							"http_request_method": [],
-							"path_pattern":        [],
-							"query_string":        [],
-							"source_ip":           [],
-						},
-					],
-					"id":           true,
-					"listener_arn": true,
-				},
-				"before": null,
-			},
-			"mode":           "managed",
-			"module_address": "module.listener_rule",
-			"name":           "app_canary",
-			"provider_name":  "registry.terraform.io/hashicorp/aws",
-			"type":           "aws_lb_listener_rule",
-		},
-		{
-			"address": "module.listener_rule.aws_lb_target_group.canary",
-			"change": {
-				"actions": [
-					"create",
-				],
-				"after": {
-					"deregistration_delay": 300,
-					"health_check": [
-						{
-							"enabled":             true,
-							"healthy_threshold":   3,
-							"interval":            30,
-							"path":                "/health",
-							"port":                "traffic-port",
-							"protocol":            "HTTP",
-							"unhealthy_threshold": 3,
-						},
-					],
-					"lambda_multi_value_headers_enabled": false,
-					"name":              "my-application-cloud",
-					"name_prefix":       null,
-					"port":              9090,
-					"protocol":          "HTTP",
-					"proxy_protocol_v2": false,
-					"slow_start":        0,
-					"tags":              null,
-					"target_type":       "ip",
-					"vpc_id":            "vpc-9476d7ff",
-				},
-				"after_unknown": {
-					"arn":        true,
-					"arn_suffix": true,
-					"health_check": [
-						{
-							"matcher": true,
-							"timeout": true,
-						},
-					],
-					"id": true,
-					"load_balancing_algorithm_type": true,
-					"stickiness":                    true,
-				},
-				"before": null,
-			},
-			"mode":           "managed",
-			"module_address": "module.listener_rule",
-			"name":           "canary",
-			"provider_name":  "registry.terraform.io/hashicorp/aws",
-			"type":           "aws_lb_target_group",
-		},
-		{
-			"address": "module.listener_rule.aws_lb_target_group_attachment.app_canary[\"10.0.1.23\"]",
-			"change": {
-				"actions": [
-					"create",
-				],
-				"after": {
-					"availability_zone": "all",
-					"port":              9090,
-					"target_id":         "10.0.1.23",
-				},
-				"after_unknown": {
-					"id":               true,
-					"target_group_arn": true,
-				},
-				"before": null,
-			},
-			"index":          "10.0.1.23",
-			"mode":           "managed",
-			"module_address": "module.listener_rule",
-			"name":           "app_canary",
-			"provider_name":  "registry.terraform.io/hashicorp/aws",
-			"type":           "aws_lb_target_group_attachment",
-		},
-		{
-			"address": "module.listener_rule.aws_lb_target_group_attachment.app_canary[\"10.0.1.44\"]",
-			"change": {
-				"actions": [
-					"create",
-				],
-				"after": {
-					"availability_zone": "all",
-					"port":              9090,
-					"target_id":         "10.0.1.44",
-				},
-				"after_unknown": {
-					"id":               true,
-					"target_group_arn": true,
-				},
-				"before": null,
-			},
-			"index":          "10.0.1.44",
-			"mode":           "managed",
-			"module_address": "module.listener_rule",
-			"name":           "app_canary",
-			"provider_name":  "registry.terraform.io/hashicorp/aws",
-			"type":           "aws_lb_target_group_attachment",
-		},
-		{
-			"address": "module.listener_rule.aws_lb_target_group_attachment.app_canary[\"10.0.1.8\"]",
-			"change": {
-				"actions": [
-					"create",
-				],
-				"after": {
-					"availability_zone": "all",
-					"port":              9090,
-					"target_id":         "10.0.1.8",
-				},
-				"after_unknown": {
-					"id":               true,
-					"target_group_arn": true,
-				},
-				"before": null,
-			},
-			"index":          "10.0.1.8",
-			"mode":           "managed",
-			"module_address": "module.listener_rule",
-			"name":           "app_canary",
-			"provider_name":  "registry.terraform.io/hashicorp/aws",
-			"type":           "aws_lb_target_group_attachment",
-		},
-	],
 	"terraform_version": "0.14.4",
 	"variables": {
 		"region": {
@@ -1810,85 +610,117 @@ raw = {
 		},
 		"services": {
 			"value": {
-				"my-application-895756f5f-c5hpp-my-application.ip-10-0-1-44.us-west-2.compute.internal.cloud": {
-					"address": "10.0.1.45",
-					"id":      "my-application-895756f5f-c5hpp-my-application",
+				"consul-ingress-gateway-6fd76bdf66-p9qnt.ip-10-0-1-39.us-west-2.compute.internal.cloud": {
+					"address":               "10.0.1.39",
+					"cts_user_defined_meta": {},
+					"id":              "consul-ingress-gateway-6fd76bdf66-p9qnt",
+					"kind":            "ingress-gateway",
+					"meta":            {},
+					"name":            "ingress-gateway",
+					"namespace":       null,
+					"node":            "ip-10-0-1-39.us-west-2.compute.internal",
+					"node_address":    "10.0.1.44",
+					"node_datacenter": "cloud",
+					"node_id":         "fd1def7c-d139-e1a9-4a96-822ddda3e80b",
+					"node_meta": {
+						"consul-network-segment": "",
+						"pod-name":               "consul-lcdsm",
+					},
+					"node_tagged_addresses": {
+						"lan":      "10.0.1.44",
+						"lan_ipv4": "10.0.1.44",
+						"wan":      "10.0.1.44",
+						"wan_ipv4": "10.0.1.44",
+					},
+					"port":   30909,
+					"status": "passing",
+					"tags":   [],
+				},
+				"my-application-575957b495-24cw4-my-application.ip-10-0-1-12.us-west-2.compute.internal.cloud": {
+					"address":               "10.0.1.4",
+					"cts_user_defined_meta": {},
+					"id":   "my-application-575957b495-24cw4-my-application",
+					"kind": "",
 					"meta": {
 						"host":     "my-application.my-company.net",
-						"pod-name": "my-application-895756f5f-c5hpp",
-						"weight": 20,
+						"pod-name": "my-application-575957b495-24cw4",
+						"weight":   "0",
 					},
 					"name":            "my-application",
 					"namespace":       null,
-					"node":            "ip-10-0-1-44.us-west-2.compute.internal",
-					"node_address":    "10.0.1.46",
+					"node":            "ip-10-0-1-12.us-west-2.compute.internal",
+					"node_address":    "10.0.1.9",
 					"node_datacenter": "cloud",
-					"node_id":         "15433dcf-8fd7-e3ff-a280-19a09fca84bf",
+					"node_id":         "58df9b87-bf3a-61b9-6e00-30e8f6ec9b23",
 					"node_meta": {
 						"consul-network-segment": "",
-						"pod-name":               "consul-consul-g46mj",
+						"pod-name":               "consul-2mpz6",
 					},
 					"node_tagged_addresses": {
-						"lan":      "10.0.1.46",
-						"lan_ipv4": "10.0.1.46",
-						"wan":      "10.0.1.46",
-						"wan_ipv4": "10.0.1.46",
+						"lan":      "10.0.1.9",
+						"lan_ipv4": "10.0.1.9",
+						"wan":      "10.0.1.9",
+						"wan_ipv4": "10.0.1.9",
 					},
 					"port":   9090,
 					"status": "passing",
 					"tags":   [],
 				},
-				"my-application-895756f5f-dvdbk-my-application.ip-10-0-1-23.us-west-2.compute.internal.cloud": {
-					"address": "10.0.1.30",
-					"id":      "my-application-895756f5f-dvdbk-my-application",
+				"my-application-575957b495-cdvgw-my-application.ip-10-0-1-39.us-west-2.compute.internal.cloud": {
+					"address":               "10.0.1.36",
+					"cts_user_defined_meta": {},
+					"id":   "my-application-575957b495-cdvgw-my-application",
+					"kind": "",
 					"meta": {
 						"host":     "my-application.my-company.net",
-						"pod-name": "my-application-895756f5f-dvdbk",
-						"weight": 20,
+						"pod-name": "my-application-575957b495-cdvgw",
+						"weight":   "0",
 					},
 					"name":            "my-application",
 					"namespace":       null,
-					"node":            "ip-10-0-1-23.us-west-2.compute.internal",
-					"node_address":    "10.0.1.29",
+					"node":            "ip-10-0-1-39.us-west-2.compute.internal",
+					"node_address":    "10.0.1.44",
 					"node_datacenter": "cloud",
-					"node_id":         "0050311d-832b-b87b-6489-de1784ef07d5",
+					"node_id":         "fd1def7c-d139-e1a9-4a96-822ddda3e80b",
 					"node_meta": {
 						"consul-network-segment": "",
-						"pod-name":               "consul-consul-xlz6g",
+						"pod-name":               "consul-lcdsm",
 					},
 					"node_tagged_addresses": {
-						"lan":      "10.0.1.29",
-						"lan_ipv4": "10.0.1.29",
-						"wan":      "10.0.1.29",
-						"wan_ipv4": "10.0.1.29",
+						"lan":      "10.0.1.44",
+						"lan_ipv4": "10.0.1.44",
+						"wan":      "10.0.1.44",
+						"wan_ipv4": "10.0.1.44",
 					},
 					"port":   9090,
 					"status": "passing",
 					"tags":   [],
 				},
-				"my-application-895756f5f-j2z46-my-application.ip-10-0-1-8.us-west-2.compute.internal.cloud": {
-					"address": "10.0.1.9",
-					"id":      "my-application-895756f5f-j2z46-my-application",
+				"my-application-575957b495-qxqhx-my-application.ip-10-0-1-30.us-west-2.compute.internal.cloud": {
+					"address":               "10.0.1.20",
+					"cts_user_defined_meta": {},
+					"id":   "my-application-575957b495-qxqhx-my-application",
+					"kind": "",
 					"meta": {
 						"host":     "my-application.my-company.net",
-						"pod-name": "my-application-895756f5f-j2z46",
-						"weight": 20,
+						"pod-name": "my-application-575957b495-qxqhx",
+						"weight":   "0",
 					},
 					"name":            "my-application",
 					"namespace":       null,
-					"node":            "ip-10-0-1-8.us-west-2.compute.internal",
-					"node_address":    "10.0.1.10",
+					"node":            "ip-10-0-1-30.us-west-2.compute.internal",
+					"node_address":    "10.0.1.27",
 					"node_datacenter": "cloud",
-					"node_id":         "50eec152-e970-79e8-1914-5f04c0ec792d",
+					"node_id":         "3b545e12-1de4-49b8-8b06-80c7f06f9810",
 					"node_meta": {
 						"consul-network-segment": "",
-						"pod-name":               "consul-consul-78nsv",
+						"pod-name":               "consul-62srk",
 					},
 					"node_tagged_addresses": {
-						"lan":      "10.0.1.10",
-						"lan_ipv4": "10.0.1.10",
-						"wan":      "10.0.1.10",
-						"wan_ipv4": "10.0.1.10",
+						"lan":      "10.0.1.27",
+						"lan_ipv4": "10.0.1.27",
+						"wan":      "10.0.1.27",
+						"wan_ipv4": "10.0.1.27",
 					},
 					"port":   9090,
 					"status": "passing",

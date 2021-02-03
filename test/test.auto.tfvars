@@ -1,7 +1,5 @@
 region = "us-east-2"
 
-service_kind = "ingress-gateway"
-
 services = {
   "consul-ingress-gateway-6fd76bdf66-p9qnt.ip-10-0-1-39.us-west-2.compute.internal.cloud" : {
     id              = "consul-ingress-gateway-6fd76bdf66-p9qnt"

@@ -57,4 +57,5 @@ module "listener_rule" {
   blue_target_group_arn = aws_lb_target_group.module_test.arn
   vpc_id                = data.aws_vpc.selected.id
   health_check_path     = "/health"
+  service_kind          = "ingress-gateway"
 }
