@@ -10,12 +10,16 @@ for services as service {
 
 consul_terraform_sync_service_metadata_weights = []
 for services as service {
-	append(consul_terraform_sync_service_metadata_weights, service.meta.weight)
+	if "weight" in keys(service.meta) {
+		append(consul_terraform_sync_service_metadata_weights, service.meta.weight)
+	}
 }
 
 consul_terraform_sync_service_metadata_hosts = []
 for services as service {
-	append(consul_terraform_sync_service_metadata_hosts, service.meta.host)
+	if "host" in keys(service.meta) {
+		append(consul_terraform_sync_service_metadata_hosts, service.meta.host)
+	}
 }
 
 aws_lb_target_group_attachments = filter resources as _, v { v.type is "aws_lb_target_group_attachment" }
