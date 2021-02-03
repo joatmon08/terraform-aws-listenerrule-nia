@@ -11,6 +11,7 @@ variable "services" {
       name      = string
       address   = string
       port      = number
+      kind      = string
       meta      = map(string)
       tags      = list(string)
       namespace = string

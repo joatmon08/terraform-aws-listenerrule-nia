@@ -6,6 +6,7 @@ variable "services" {
       name      = string
       address   = string
       port      = number
+      kind      = string
       meta      = map(string)
       tags      = list(string)
       namespace = string
@@ -45,6 +46,7 @@ variable "green_weight" {
 variable "health_check_path" {
   type        = string
   description = "Path of health check for applications"
+  default     = "/health"
 }
 
 variable "enable_stickiness" {
@@ -69,34 +71,40 @@ variable "listener_rule_priority" {
   }
 }
 
+variable "service_kind" {
+  type        = string
+  description = "Kind of Consul service. Can be ingress-gateway, terminating-gateway."
+  default     = ""
+}
+
 locals {
   name = distinct([
     for service, service_data in var.services :
-    service_data.name
+    service_data.name if service_data.kind == var.service_kind
   ])
 
   ip_addresses = toset([
     for service, service_data in var.services :
-    replace(replace(split(".", service_data.node)[0], "ip-", ""), "-", ".")
+    replace(replace(split(".", service_data.node)[0], "ip-", ""), "-", ".") if service_data.kind == var.service_kind
   ])
 
   port = distinct([
     for service, service_data in var.services :
-    service_data.port
+    service_data.port if service_data.kind == var.service_kind
   ])
 
   host = distinct([
     for service, service_data in var.services :
-    service_data.meta.host
+    service_data.meta.host if service_data.kind == ""
   ])
 
   weight = distinct([
     for service, service_data in var.services :
-    lookup(service_data.meta, "weight", 0)
+    lookup(service_data.meta, "weight", 0) if service_data.kind == ""
   ])
 
   datacenter = distinct([
     for service, service_data in var.services :
-    service_data.node_datacenter
+    service_data.node_datacenter if service_data.kind == var.service_kind
   ])
 }
