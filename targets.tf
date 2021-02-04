@@ -6,7 +6,7 @@ resource "aws_lb_target_group" "canary" {
   target_type = "ip"
 
   health_check {
-    enabled = true
+    enabled = var.enable_health_check
     path    = var.health_check_path
   }
 }

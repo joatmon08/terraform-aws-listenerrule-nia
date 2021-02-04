@@ -43,6 +43,12 @@ variable "green_weight" {
   default     = 0
 }
 
+variable "enable_health_check" {
+  type        = bool
+  description = "Enable health checking for target group"
+  default     = true
+}
+
 variable "health_check_path" {
   type        = string
   description = "Path of health check for applications"
