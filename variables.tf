@@ -55,6 +55,12 @@ variable "health_check_path" {
   default     = "/health"
 }
 
+variable "health_check_matcher" {
+  type        = string
+  description = "HTTP codes for health check"
+  default     = "200"
+}
+
 variable "enable_stickiness" {
   type        = bool
   description = "Enable stickiness"

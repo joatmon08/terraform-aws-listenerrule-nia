@@ -8,6 +8,7 @@ resource "aws_lb_target_group" "canary" {
   health_check {
     enabled = var.enable_health_check
     path    = var.health_check_path
+    matcher = var.health_check_matcher
   }
 }
 
