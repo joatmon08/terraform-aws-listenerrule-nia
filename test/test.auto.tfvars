@@ -7,9 +7,34 @@
 # Task: canary
 # Description: send canary traffic to my-application in datacenter cloud
 
-region = "us-east-1"
-
 services = {
+  "consul-ingress-gateway-bdfcf7bb-vpxwl.ip-10-0-1-20.us-west-2.compute.internal.cloud" : {
+    id              = "consul-ingress-gateway-bdfcf7bb-vpxwl"
+    name            = "ingress-gateway"
+    kind            = "ingress-gateway"
+    address         = "10.0.1.20"
+    port            = 30909
+    meta            = {}
+    tags            = []
+    namespace       = null
+    status          = "passing"
+    node            = "ip-10-0-1-20.us-west-2.compute.internal"
+    node_id         = "ac82db86-fda8-a7f8-538d-3972c1766bcb"
+    node_address    = "10.0.1.21"
+    node_datacenter = "cloud"
+    node_tagged_addresses = {
+      lan      = "10.0.1.21"
+      lan_ipv4 = "10.0.1.21"
+      wan      = "10.0.1.21"
+      wan_ipv4 = "10.0.1.21"
+    }
+    node_meta = {
+      consul-network-segment = ""
+      host-ip                = "10.0.1.20"
+      pod-name               = "consul-m9wxp"
+    }
+    cts_user_defined_meta = {}
+  },
   "my-application-575957b495-lz2c7-my-application.ip-10-0-1-20.us-west-2.compute.internal.cloud" : {
     id      = "my-application-575957b495-lz2c7-my-application"
     name    = "my-application"
