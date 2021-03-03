@@ -1,5 +1,5 @@
 locals {
-  module_name = "terraform-aws-nlb"
+  module_name = "terraform-aws-listener-rule"
 
   tags = {
     module  = local.module_name
