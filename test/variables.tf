@@ -1,6 +1,7 @@
 variable "region" {
   type        = string
   description = "AWS region"
+  default     = "us-east-1"
 }
 
 variable "services" {
@@ -9,9 +10,9 @@ variable "services" {
     object({
       id        = string
       name      = string
+      kind      = string
       address   = string
       port      = number
-      kind      = string
       meta      = map(string)
       tags      = list(string)
       namespace = string
@@ -23,6 +24,8 @@ variable "services" {
       node_datacenter       = string
       node_tagged_addresses = map(string)
       node_meta             = map(string)
+
+      cts_user_defined_meta = map(string)
     })
   )
 }

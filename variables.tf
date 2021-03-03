@@ -4,9 +4,9 @@ variable "services" {
     object({
       id        = string
       name      = string
+      kind      = string
       address   = string
       port      = number
-      kind      = string
       meta      = map(string)
       tags      = list(string)
       namespace = string
@@ -18,6 +18,8 @@ variable "services" {
       node_datacenter       = string
       node_tagged_addresses = map(string)
       node_meta             = map(string)
+
+      cts_user_defined_meta = map(string)
     })
   )
 }
@@ -107,12 +109,12 @@ locals {
 
   host = distinct([
     for service, service_data in var.services :
-    service_data.meta.host if service_data.kind == ""
+    service_data.cts_user_defined_meta.host if service_data.kind == ""
   ])
 
   weight = distinct([
     for service, service_data in var.services :
-    lookup(service_data.meta, "weight", 0) if service_data.kind == ""
+    lookup(service_data.cts_user_defined_meta, "weight", 0) if service_data.kind == ""
   ])
 
   datacenter = distinct([
