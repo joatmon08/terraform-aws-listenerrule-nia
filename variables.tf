@@ -107,14 +107,14 @@ locals {
     service_data.port if service_data.kind == var.service_kind
   ])
 
-  host = distinct([
+  host = coalescelist(distinct([
     for service, service_data in var.services :
     service_data.cts_user_defined_meta.host if service_data.kind == ""
-  ])
+  ]))
 
   weight = distinct([
     for service, service_data in var.services :
-    lookup(service_data.cts_user_defined_meta, "weight", 0) if service_data.kind == ""
+    lookup(service_data.meta, "weight", 0) if service_data.kind == ""
   ])
 
   datacenter = distinct([

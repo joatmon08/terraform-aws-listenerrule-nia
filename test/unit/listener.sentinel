@@ -11,8 +11,8 @@ for services as service {
 
 consul_terraform_sync_service_metadata_weights = []
 for services as service {
-	if "weight" in keys(service.cts_user_defined_meta) {
-		append(consul_terraform_sync_service_metadata_weights, decimal.new(service.cts_user_defined_meta.weight).int)
+	if "weight" in keys(service.meta) {
+		append(consul_terraform_sync_service_metadata_weights, decimal.new(service.meta.weight).int)
 	}
 }
 
