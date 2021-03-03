@@ -1,4 +1,4 @@
-# terraform-aws-listener-rule
+# terraform-aws-listenerrule-nia
 
 This module for Consul Terraform Sync creates a listener rule to be added to
 an application load balancer. The listener rules offer a way to
