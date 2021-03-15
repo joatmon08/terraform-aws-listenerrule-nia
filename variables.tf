@@ -59,7 +59,7 @@ variable "health_check_path" {
 
 variable "health_check_matcher" {
   type        = string
-  description = "HTTP codes for health check"
+  description = "(Required for HTTP/HTTPS/GRPC ALB) The response codes to use when checking for a healthy responses from a target. You can specify multiple values (for example, \"200,202\" for HTTP(s) or \"0,12\" for GRPC) or a range of values (for example, \"200-299\" or \"0-99\"). Applies to Application Load Balancers only (HTTP/HTTPS/GRPC), not Network Load Balancers (TCP)."
   default     = "200"
 }
 
@@ -71,7 +71,7 @@ variable "enable_stickiness" {
 
 variable "stickiness_duration" {
   type        = number
-  description = "Duration of stickness in seconds"
+  description = "Duration of stickiness in seconds"
   default     = 600
 }
 

@@ -1,3 +1,4 @@
+// See https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/lb_target_group
 resource "aws_lb_target_group" "canary" {
   name        = "${local.name.0}-${local.datacenter.0}"
   port        = local.port.0
@@ -12,6 +13,7 @@ resource "aws_lb_target_group" "canary" {
   }
 }
 
+// See https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/lb_target_group_attachment
 resource "aws_lb_target_group_attachment" "app_canary" {
   for_each          = local.ip_addresses
   target_group_arn  = aws_lb_target_group.canary.arn
