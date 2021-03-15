@@ -51,11 +51,8 @@ resource "aws_lb_listener" "module_test" {
 }
 
 module "listener_rule" {
-  source                = "../"
-  services              = var.services
-  listener_arn          = aws_lb_listener.module_test.arn
-  blue_target_group_arn = aws_lb_target_group.module_test.arn
-  vpc_id                = data.aws_vpc.selected.id
-  health_check_path     = "/health"
-  service_kind          = "ingress-gateway"
+  source                           = "../"
+  services                         = var.services
+  listener_arn                     = aws_lb_listener.module_test.arn
+  ingress_gateway_target_group_arn = aws_lb_target_group.module_test.arn
 }
