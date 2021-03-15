@@ -29,52 +29,6 @@ variable "listener_arn" {
   description = "ARN of listener to update"
 }
 
-variable "blue_target_group_arn" {
-  type        = string
-  description = "ARN of blue target group (existing target group with working application)"
-}
-
-variable "vpc_id" {
-  type        = string
-  description = "ID of the VPC for the target group"
-}
-
-variable "green_weight" {
-  type        = number
-  description = "Percentage of traffic to send to green deployment"
-  default     = 0
-}
-
-variable "enable_health_check" {
-  type        = bool
-  description = "Enable health checking for target group"
-  default     = true
-}
-
-variable "health_check_path" {
-  type        = string
-  description = "Path of health check for applications"
-  default     = "/health"
-}
-
-variable "health_check_matcher" {
-  type        = string
-  description = "(Required for HTTP/HTTPS/GRPC ALB) The response codes to use when checking for a healthy responses from a target. You can specify multiple values (for example, \"200,202\" for HTTP(s) or \"0,12\" for GRPC) or a range of values (for example, \"200-299\" or \"0-99\"). Applies to Application Load Balancers only (HTTP/HTTPS/GRPC), not Network Load Balancers (TCP)."
-  default     = "200"
-}
-
-variable "enable_stickiness" {
-  type        = bool
-  description = "Enable stickiness"
-  default     = false
-}
-
-variable "stickiness_duration" {
-  type        = number
-  description = "Duration of stickiness in seconds"
-  default     = 600
-}
-
 variable "listener_rule_priority" {
   type        = number
   default     = 1
@@ -85,40 +39,40 @@ variable "listener_rule_priority" {
   }
 }
 
-variable "service_kind" {
+variable "ingress_gateway_target_group_arn" {
   type        = string
-  description = "Kind of Consul service. Can be ingress-gateway, terminating-gateway."
-  default     = ""
+  description = "Target Group ARN for Consul ingress gateway"
 }
 
 locals {
   name = distinct([
     for service, service_data in var.services :
-    service_data.name if service_data.kind == var.service_kind
+    service_data.name if service_data.kind == "ingress-gateway"
   ])
 
   ip_addresses = toset([
     for service, service_data in var.services :
-    replace(replace(split(".", service_data.node)[0], "ip-", ""), "-", ".") if service_data.kind == var.service_kind
+    replace(replace(split(".", service_data.node)[0], "ip-", ""), "-", ".") if service_data.kind == "ingress-gateway"
   ])
 
   port = distinct([
     for service, service_data in var.services :
-    service_data.port if service_data.kind == var.service_kind
+    service_data.port if service_data.kind == "ingress-gateway"
   ])
 
+  // Get a list of unique host headers defined by CTS services configuration
   host = coalescelist(distinct([
     for service, service_data in var.services :
-    service_data.cts_user_defined_meta.host if service_data.kind == ""
+    service_data.cts_user_defined_meta.host if service_data.kind != "ingress-gateway"
   ]))
 
   weight = distinct([
     for service, service_data in var.services :
-    lookup(service_data.meta, "weight", 0) if service_data.kind == ""
+    lookup(service_data.meta, "weight", 0) if service_data.kind != "ingress-gateway"
   ])
 
   datacenter = distinct([
     for service, service_data in var.services :
-    service_data.node_datacenter if service_data.kind == var.service_kind
+    service_data.node_datacenter if service_data.kind == "ingress-gateway"
   ])
 }
